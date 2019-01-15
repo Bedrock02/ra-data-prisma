@@ -114,16 +114,20 @@ const buildCreateUpdateVariables = () => (
             ...acc,
             [key]: { create: params.data[key] }
           };
-          
+
         }
     }
 
-    // Never return nested types as variables for now 
+    // Never return nested types as variables for now
     const parts = key.split(".");
     if (parts.length > 1) {
-      params.data[key].map(item => {
-        console.log(key, item)
-      })
+      if( Array.isArray( params.data[key] ) ) {
+        params.data[key].map(item => {
+          console.log(key, item);
+        });
+      } else {
+        console.log(key, params.data);
+      }
       return acc
     }
 

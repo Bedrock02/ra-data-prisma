@@ -35,9 +35,12 @@ const sanitizeResource = (introspectionResults, resource) => data => {
                 // };
 
                 // Shorter, more elegant approach
-                
+
                 return {
                     ...acc,
+                    [`${field.name}.id`]: linkedResourceData
+                      ? data[field.name].id
+                      : undefined,
                     [field.name]: data[field.name].map(
                         sanitizeResource(introspectionResults, linkedResource)
                     ).map(d => d.id),
